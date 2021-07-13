@@ -1,5 +1,4 @@
 import React from "react";
-const BASE_URL = `https://api.themoviedb.org/3/search/movie?api_key=${process.env.REACT_APP_MOVIES_API_KEY}&language=en-US&page=1&include_adult=false&query=`;
 
 function SearchMovies({ setMovies }) {
   const [inputQuery, setInputQuery] = React.useState("");
@@ -8,11 +7,11 @@ function SearchMovies({ setMovies }) {
     event.preventDefault();
 
     try {
-      // const res = await fetch(`${BASE_URL}${inputQuery}`);
       const res = await fetch(
-        `../../.netlify/functions/movies?inputQuery=${inputQuery}`
+        `./.netlify/functions/movies?inputQuery=${inputQuery}`
       );
-      const data = await res.json();
+      const { data } = await res.json();
+
       setMovies(data.results);
     } catch (err) {
       console.log(err);
